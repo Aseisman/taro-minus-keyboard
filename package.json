@@ -1,6 +1,6 @@
 {
   "name": "taro-minus-keyboard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A custom keyboard component for Taro + React",
   "keywords": [
     "taro",
@@ -16,6 +16,13 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aseisman/taro-minus-keyboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aseisman/taro-minus-keyboard/issues"
+  },
   "files": [
     "dist"
   ],
