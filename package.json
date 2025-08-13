@@ -1,0 +1,39 @@
+{
+  "name": "taro-minus-keyboard",
+  "version": "1.0.1",
+  "description": "A custom keyboard component for Taro + React",
+  "keywords": [
+    "taro",
+    "react",
+    "keyboard",
+    "component"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --bundleConfigAsCjs"
+  },
+  "author": "Aseisman",
+  "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@tarojs/components": "4.1.1",
+    "@tarojs/react": "4.1.1",
+    "@tarojs/taro": "4.1.1",
+    "@types/react": "^18.0.0",
+    "postcss": "^8.5.6",
+    "rollup": "^4.46.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sass": "^1.75.0"
+  }
+}
