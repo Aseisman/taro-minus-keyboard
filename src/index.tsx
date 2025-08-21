@@ -23,9 +23,12 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
   const keyboardRef = useRef<any>(null);
   const slotRef = useRef<any>(null);
 
-  // 点击键盘按钮
-  const handleKeyPress = (key: string) => {
-    // 确保 value 是字符串，处理 undefined/null 情况
+  // 处理键盘按钮点击
+  const handleKeyPress = (key: string, e: any) => {
+    // 阻止默认行为和事件冒泡
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (e && e.preventDefault) e.preventDefault();
+    
     const currentValue = typeof value === 'string' ? value : '';
     let newValue = currentValue;
 
@@ -120,10 +123,18 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
   };
 
   // 在小程序中点击蒙层关闭键盘
-  const handleMaskClick = () => {
+  const handleMaskClick = (e: any) => {
+    e.stopPropagation && e.stopPropagation();
+    e.preventDefault && e.preventDefault();
     if (process.env.TARO_ENV === 'weapp' || process.env.TARO_ENV === 'alipay') {
       setVisible(false);
     }
+  };
+
+  // 处理按钮触摸开始事件（防止焦点）
+  const handleTouchStart = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
   };
 
   return (
@@ -148,7 +159,11 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
           {/* 小程序蒙层 */}
           {(process.env.TARO_ENV === 'weapp' ||
             process.env.TARO_ENV === 'alipay') && (
-            <View className='keyboard-mask' onClick={handleMaskClick} />
+            <View 
+              className='keyboard-mask' 
+              onClick={handleMaskClick}
+              onTouchStart={handleTouchStart}
+            />
           )}
 
           <View className='keyboard' ref={keyboardRef}>
@@ -157,7 +172,8 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
                 <View
                   key={num}
                   className='keyboard-key'
-                  onClick={() => handleKeyPress(num.toString())}
+                  onClick={(e) => handleKeyPress(num.toString(), e)}
+                  onTouchStart={handleTouchStart}
                 >
                   <Text>{num}</Text>
                 </View>
@@ -168,7 +184,8 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
                 <View
                   key={num}
                   className='keyboard-key'
-                  onClick={() => handleKeyPress(num.toString())}
+                  onClick={(e) => handleKeyPress(num.toString(), e)}
+                  onTouchStart={handleTouchStart}
                 >
                   <Text>{num}</Text>
                 </View>
@@ -179,7 +196,8 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
                 <View
                   key={num}
                   className='keyboard-key'
-                  onClick={() => handleKeyPress(num.toString())}
+                  onClick={(e) => handleKeyPress(num.toString(), e)}
+                  onTouchStart={handleTouchStart}
                 >
                   <Text>{num}</Text>
                 </View>
@@ -188,25 +206,29 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
             <View className='keyboard-row'>
               <View
                 className='keyboard-key'
-                onClick={() => handleKeyPress('-')}
+                onClick={(e) => handleKeyPress('-', e)}
+                onTouchStart={handleTouchStart}
               >
                 <Text>-</Text>
               </View>
               <View
                 className='keyboard-key'
-                onClick={() => handleKeyPress('.')}
+                onClick={(e) => handleKeyPress('.', e)}
+                onTouchStart={handleTouchStart}
               >
                 <Text>.</Text>
               </View>
               <View
                 className='keyboard-key'
-                onClick={() => handleKeyPress('0')}
+                onClick={(e) => handleKeyPress('0', e)}
+                onTouchStart={handleTouchStart}
               >
                 <Text>0</Text>
               </View>
               <View
                 className='keyboard-key delete-key'
-                onClick={() => handleKeyPress('delete')}
+                onClick={(e) => handleKeyPress('delete', e)}
+                onTouchStart={handleTouchStart}
               >
                 <Text>删除</Text>
               </View>
@@ -215,10 +237,13 @@ const MinusKeyboard: React.FC<MinusKeyboardProps> = ({
               <View className='keyboard-row'>
                 <View
                   className='keyboard-key confirm-key'
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
                     onConfirm();
                     setVisible(false);
                   }}
+                  onTouchStart={handleTouchStart}
                 >
                   <Text>确定</Text>
                 </View>

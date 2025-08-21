@@ -81,3 +81,24 @@
     background-color: #1890ff;
     color: white;
 }
+
+/* 防止iOS上的默认行为 */
+.keyboard-key,
+.keyboard-slot {
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none;
+}
+
+/* 针对H5环境的额外样式 */
+@media (max-width: 768px) {
+    .keyboard-key {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
